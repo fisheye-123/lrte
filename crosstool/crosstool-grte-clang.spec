@@ -61,6 +61,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
     -DLLVM_TOOL_LIBCXXABI_BUILD=OFF \
     -DLLVM_TOOL_DRAGONEGG_BUILD=OFF \
     -DLLVM_TOOL_LLGO_BUILD=OFF \
+    -DLLVM_ENABLE_Z3_SOLVER=OFF \
     -DLLVM_TOOL_LLD_BUILD=OFF \
     -DLLVM_TOOL_LLDB_BUILD=OFF \
     -DLLVM_TOOL_LIBUNWIND_BUILD=OFF \
@@ -69,8 +70,9 @@ cmake -DCMAKE_BUILD_TYPE=Release \
     -DLLVM_BINUTILS_INCDIR=%{target_top}/x86/include \
     %{_sourcedir}/llvm
 make $PARALLELMFLAGS
-rm -rf $RPM_BUILD_ROOT
+#rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+#-DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=ON
 
 %install
 # Set PATH here so the scripts run by __spec_install_post, which use

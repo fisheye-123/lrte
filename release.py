@@ -66,10 +66,11 @@ def start_container(docker_image, command,
     else:
         cmd += command
     print("=== Running %s" % (str(cmd)))
-    if start_subprocess:
-        subprocess.check_call(cmd)
-    else:
-        os.execv(cmd[0], cmd)
+    print("=== Running %s" % (' '.join(cmd)))
+    #if start_subprocess:
+    #    subprocess.check_call(cmd)
+    #else:
+    #    os.execv(cmd[0], cmd)
 
 
 def get_svn_revision(svn_directory, svn_url):
@@ -166,15 +167,18 @@ def main():
     if 'crosstool' in args.actions:
         if not os.path.isdir(os.path.join(lrte_output, 'results/debs')):
             raise Exception(os.path.join(lrte_output, 'results/debs') + ' does not exit, please build LRTE packages first')
-        env['GCC_SVN_VERSION'] = get_svn_revision(
-            os.path.join(args.upstream_source, 'gcc-4_9'),
-            'svn://gcc.gnu.org/svn/gcc/branches/google/gcc-4_9')
-        env['CLANG_SVN_VERSION'] = get_svn_revision(
-            os.path.join(args.upstream_source, 'llvm/tools/clang'),
-            'http://clang.llvm.org/get_started.html')
-        if args.crosstool_skip:
-            for skip in args.crosstool_skip:
-                env['SKIP_CROSSTOOL_' + skip.upper()] = '1'
+        #env['GCC_SVN_VERSION'] = get_svn_revision(
+        #    os.path.join(args.upstream_source, 'gcc-4_9'),
+        #    'svn://gcc.gnu.org/svn/gcc/branches/google/gcc-4_9')
+        env['GCC_SVN_VERSION'] = '1.0'
+        #env['CLANG_SVN_VERSION'] = get_svn_revision(
+        #    os.path.join(args.upstream_source, 'llvm/tools/clang'),
+        #    'http://clang.llvm.org/get_started.html')
+        env['CLANG_SVN_VERSION'] = '1.1'
+        #if args.crosstool_skip:
+        #    for skip in args.crosstool_skip:
+        #        env['SKIP_CROSSTOOL_' + skip.upper()] = '1'
+        env['SKIP_CROSSTOOL_GCC'] = '1'
         start_container(args.docker_image,
                         ['./build_crosstool.sh', args.lrte_prefix,
                          lrte_output_in_docker,

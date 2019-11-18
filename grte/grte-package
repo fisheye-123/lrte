@@ -765,8 +765,8 @@ sed -e "s;${GRTEROOT}/lib64/;;g" \
 
 # Remove info and man
 rm -fr "${DSDIR}/share/info" "${DSDIR}/share/man"
-ls "${DSDIR}/share"/gcc-4.*
-rm -fr "${DSDIR}/share"/gcc-4.*
+ls "${DSDIR}/share"/gcc-5.*
+rm -fr "${DSDIR}/share"/gcc-5.*
 
 #
 # Ensure that we convert any identical files in the runtimes to symlinks.

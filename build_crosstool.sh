@@ -1,4 +1,7 @@
 #!/bin/bash
+GCC_SVN_VERSION='1.0'
+CLANG_SVN_VERSION='1.0'
+SKIP_CROSSTOOL_GCC='1'
 
 # Take input from /dev/null.
 exec < /dev/null
@@ -60,8 +63,8 @@ done
 ln -sf /bin/bash /bin/sh
 
 # install packages that are needed by building binutils and clang
-apt-get update
-apt-get install -y flex bison rpm texinfo texi2html libxml2-dev make alien wget
+#apt-get update
+#apt-get install -y flex bison rpm texinfo texi2html libxml2-dev make alien wget
 
 function build_rpm() {
     local rpmrel=$1
